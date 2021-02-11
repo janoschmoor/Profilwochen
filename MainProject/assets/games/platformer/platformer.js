@@ -1,0 +1,5 @@
+class Platformer {
+    constructor() {
+        
+    }
+}
