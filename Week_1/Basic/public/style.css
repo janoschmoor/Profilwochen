@@ -1,0 +1,47 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #aaaaaa;
+}
+
+#draw-shapes {
+	margin: 0px;
+	padding: 0px;
+	white-space: nowrap;
+	border: none;
+}
+
+#typefield {
+	text-align: center;
+	padding: 12px 20px;
+	margin: 0px auto;
+	margin-top: 0px;
+	width: 50%;
+	outline: none;
+	border: 3px solid rgb(0, 0, 0);
+	border-radius: 3px;
+}
+
+.typeField {
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border: none;
+}
+
+#typefield:focus {
+	transition-duration: 0.25s;
+	border: 3px solid rgb(173, 81, 0);
+	border-radius: 3px;
+}
+
+p {
+	margin: 0;
+	/* padding-left: 400px; */
+	padding: 4px;
+	margin-bottom: 5px;
+	margin-left: 35%;
+	background-color: #e2e2e2;
+	border-radius: 2%;
+	display:inline-block;
+}

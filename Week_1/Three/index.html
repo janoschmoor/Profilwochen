@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>My first three.js app</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2022.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Consolas; color: #878787; -webkit-text-stroke: #878787}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Consolas; color: #850043; -webkit-text-stroke: #850043}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Consolas; color: #558a03; -webkit-text-stroke: #558a03}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Consolas; color: #000000; -webkit-text-stroke: #000000}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Consolas; color: #0c6399; -webkit-text-stroke: #0c6399}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; color: #4d5051; -webkit-text-stroke: 0px #4d5051}
+    span.s3 {font-kerning: none; color: #558a03; -webkit-text-stroke: 0px #558a03}
+    span.s4 {font-kerning: none; color: #0c6399; -webkit-text-stroke: 0px #0c6399}
+    span.s5 {font-kerning: none; color: #850043; -webkit-text-stroke: 0px #850043}
+    span.s6 {font-kerning: none; background-color: #fcfcfc}
+    span.s7 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s8 {font-kerning: none; color: #000000; background-color: #fcfcfc; -webkit-text-stroke: 0px #000000}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p2"><span class="s2">&lt;</span><span class="s1">html </span><span class="s3">lang</span><span class="s2">="</span><span class="s4">en</span><span class="s2">"&gt;</span></p>
+<p class="p2"><span class="s2">&lt;</span><span class="s1">head</span><span class="s2">&gt;</span></p>
+<p class="p3"><span class="s2">&lt;</span><span class="s5">meta </span><span class="s1">charset</span><span class="s2">="</span><span class="s4">utf-8</span><span class="s2">"&gt;</span></p>
+<p class="p4"><span class="s2">&lt;</span><span class="s5">title</span><span class="s2">&gt;</span><span class="s6">CSS Overlaying One DIV over Another DIV</span><span class="s2">&lt;/</span><span class="s5">title</span><span class="s2">&gt;</span></p>
+<p class="p2"><span class="s2">&lt;</span><span class="s1">style</span><span class="s2">&gt;</span><span class="s7"><span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s7"><span class="Apple-converted-space">    </span></span><span class="s1">.container</span><span class="s2">{</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">width</span><span class="s2">:</span><span class="s1"> 200px</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">height</span><span class="s2">:</span><span class="s1"> 200px</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">position</span><span class="s2">:</span><span class="s1"> relative</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">margin</span><span class="s2">:</span><span class="s1"> 20px</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s2">}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">.box</span><span class="s2">{</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">width</span><span class="s2">:</span><span class="s1"> 100%</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">height</span><span class="s2">:</span><span class="s1"> 100%</span><span class="s2">;</span><span class="s1"> <span class="Apple-converted-space">           </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">position</span><span class="s2">:</span><span class="s1"> absolute</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">top</span><span class="s2">:</span><span class="s1"> 0</span><span class="s2">;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">left</span><span class="s2">:</span><span class="s1"> 0</span><span class="s2">;</span></p>
+<p class="p1"><span class="s7"><span class="Apple-converted-space">        </span></span><span class="s5">opacity</span><span class="s2">:</span><span class="s7"> 0.8</span><span class="s2">;</span><span class="s7"><span class="Apple-converted-space">  </span></span><span class="s1">/* for demo purpose<span class="Apple-converted-space">  </span>*/</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s2">}</span></p>
+<p class="p3"><span class="s7"><span class="Apple-converted-space">    </span></span><span class="s1">.stack-top</span><span class="s2">{</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s5">z-index</span><span class="s2">:</span><span class="s1"> 9</span><span class="s2">;</span></p>
+<p class="p1"><span class="s7"><span class="Apple-converted-space">        </span></span><span class="s5">margin</span><span class="s2">:</span><span class="s7"> 20px</span><span class="s2">;</span><span class="s7"> </span><span class="s1">/* for demo purpose<span class="Apple-converted-space">  </span>*/</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s2">}</span></p>
+<p class="p2"><span class="s2">&lt;/</span><span class="s1">style</span><span class="s2">&gt;</span></p>
+<p class="p2"><span class="s2">&lt;/</span><span class="s1">head</span><span class="s2">&gt;</span></p>
+<p class="p2"><span class="s2">&lt;</span><span class="s1">body</span><span class="s2">&gt;</span></p>
+<p class="p5"><span class="s8"><span class="Apple-converted-space">    </span></span><span class="s2">&lt;</span><span class="s5">div </span><span class="s3">class</span><span class="s2">="</span><span class="s1">container</span><span class="s2">"&gt;</span></p>
+<p class="p2"><span class="s8"><span class="Apple-converted-space">        </span></span><span class="s2">&lt;</span><span class="s1">div </span><span class="s3">class</span><span class="s2">="</span><span class="s4">box</span><span class="s2">"</span><span class="s3"> style</span><span class="s2">="</span><span class="s1">background</span><span class="s2">:</span><span class="s4"> red</span><span class="s2">;"&gt;&lt;/</span><span class="s1">div</span><span class="s2">&gt;</span></p>
+<p class="p5"><span class="s8"><span class="Apple-converted-space">        </span></span><span class="s2">&lt;</span><span class="s5">div </span><span class="s3">class</span><span class="s2">="</span><span class="s1">box stack-top</span><span class="s2">"</span><span class="s3"> style</span><span class="s2">="</span><span class="s5">background</span><span class="s2">:</span><span class="s1"> blue</span><span class="s2">;"&gt;&lt;/</span><span class="s5">div</span><span class="s2">&gt;</span></p>
+<p class="p4"><span class="s6"><span class="Apple-converted-space">    </span></span><span class="s2">&lt;/</span><span class="s5">div</span><span class="s2">&gt;</span></p>
+<p class="p2"><span class="s2">&lt;/</span><span class="s1">body</span><span class="s2">&gt;</span></p>
+<p class="p2"><span class="s2">&lt;/</span><span class="s1">html</span><span class="s2">&gt;</span></p>
+</body>
+</html>

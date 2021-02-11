@@ -1,0 +1,30 @@
+{
+  "name": "profit",
+  "version": "1.0.0",
+  "description": "An interactive Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janoschmoor/ProfIT.git"
+  },
+  "keywords": [
+    "profilwochen",
+    "raphael",
+    "janosch",
+    "webdesign"
+  ],
+  "author": "Raphael Blumenbach & Janosch Moor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janoschmoor/ProfIT/issues"
+  },
+  "homepage": "https://github.com/janoschmoor/ProfIT#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.0",
+    "three": "^0.125.2"
+  }
+}

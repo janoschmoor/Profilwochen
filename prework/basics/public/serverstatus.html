@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> [Server Status] </title>
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
+
+
+
+
+    <style>
+      body {
+        /* padding: 20px; */
+        padding: 0px;
+      }
+
+      div {
+          background: #939393;
+      }
+      #info {
+          font-size: larger;
+          
+      }
+    </style>
+
+
+
+
+
+  </head>
+  <body>
+
+    <center><h1 id="title">Live GameServer Monitor [no connection]</h1></center>
+    <div id="info"> General RAW data: 
+      <li id="latency">
+        unfilled info
+      </li>
+      <li id="cycles">
+        unfilled info
+      </li>
+      <li id="floatingMean60Intervall">
+        unfilled info
+      </li>
+      <li id="floatingMean60MlDeltaTime">
+        unfilled info
+      </li>
+      <li id="onlinePlayers">
+        unfilled info
+      </li>
+      <li id="activeGames">
+        unfilled info
+      </li>
+      <li id=" ">
+        unfilled info
+      </li>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script>
+        var socket;
+        var stats;
+        function connect() {
+            document.getElementById("title").innerHTML = "Live GameServer Monitor [connecting..]";
+            socket = io.connect('192.168.129.170:3000');
+            // socket = io.connect('192.168.128.216:3000');
+            listen();
+            socket.emit('enlistForMonitoringUpdates',{msg: "hi"});
+            document.getElementById("title").innerHTML = "Live GameServer Monitor";
+        }
+        function listen() {
+            socket.on('ServerStatusUpdateForMonitoring',
+                function(dat) {
+                    stats = dat.statistic
+                    document.getElementById("cycles").innerHTML = "Cycles: " + stats.cycles;
+                    document.getElementById("floatingMean60Intervall").innerHTML = "Floating Intervall Mean at 60 ticks: " + (stats.floatingMean60Intervall).toFixed(3) + " ms";
+                    document.getElementById("floatingMean60MlDeltaTime").innerHTML = "Floating Gamelooptime Mean at 60 ticks: " + (stats.floatingMean60MlDeltaTime).toFixed(3) + " ms";
+
+                    document.getElementById("onlinePlayers").innerHTML = "Players Online: " + stats.onlinePlayers;
+                    document.getElementById("activeGames").innerHTML = "Active Games: " + stats.activeGames;
+
+                    // document.getElementById("timeSinceLastIoUpdate").innerHTML = "Time since last Io Update (Serverintern): " + stats.timeSinceLastIoUpdate;
+                }
+            );
+            socket.on('latencyCheckResponse',
+                function(data) {
+                  document.getElementById("latency").innerHTML = "Latency: " + (Date.now()-latencyTime) + " ms";
+                }
+            );
+            socket.on('getGameServerResponse',
+                function(data) {
+                  console.log(data)
+                }
+            );
+        }
+        connect();
+
+
+        function getGameServer() {
+          socket.emit('getGameServer',{});
+        }
+
+        var latencyTime = 0;
+        function latencyCheck() {
+          latencyTime = Date.now();
+          socket.emit('latencyCheck',{});
+          setTimeout(() => { latencyCheck(); }, 1000);
+        }
+        setTimeout(() => { latencyCheck(); }, 1000);
+    </script>
+
+
+  </body>
+</html>
