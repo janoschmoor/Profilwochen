@@ -2,6 +2,7 @@ import * as THREE from '/build/three.module.js';
 import {GLTFLoader} from '/jsm/loaders/GLTFLoader.js';
 import {MTLLoader} from '/jsm/loaders/MTLLoader.js';
 import {OBJLoader} from '/jsm/loaders/OBJLoader.js';
+// import {TextureLoader} from '/jsm/loaders/TextureLoader.js'
 
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 
@@ -117,6 +118,53 @@ function restoreMaterial( obj ) {
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
 scene.add(hemisphereLight);
 
+const loader = new THREE.FontLoader();
+
+loader.load( 'fonts/helvetiker_regular.typeface.json',
+    function ( font ) {
+        let geometry = new THREE.TextGeometry("Tank Wars", {
+            font: font,
+            size: 25,
+            height: 2,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.1,
+            bevelSize: 0.1,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+        const material = new THREE.MeshStandardMaterial({color: 0x00ff00});
+        const mesh = new THREE.Mesh(geometry, material);
+        
+        mesh.position.set(100, -930, -200);
+        
+        mesh.name = "blackhole1text";
+        scene.add(mesh);
+
+        let geometry2 = new THREE.TextGeometry("Platformer", {
+            font: font,
+            size: 25,
+            height: 2,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.1,
+            bevelSize: 0.1,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+        const material2 = new THREE.MeshStandardMaterial({color: 0x00ff00});
+        const mesh2 = new THREE.Mesh(geometry2, material2);
+        
+        mesh2.position.set(100, 1070, 500);
+        
+        mesh2.name = "blackhole2text";
+        scene.add(mesh2);
+});
+
+
+// + 30
+// let blackhole1 = new Blackhole(new THREE.Vector3(100, -1000, -200));
+// let blackhole2 = new Blackhole(new THREE.Vector3(100, 1000, 500));
 
 function makeCube(color) {
     let geometry = new THREE.BoxGeometry();
@@ -220,6 +268,11 @@ MTLloader.load('./home/models/character/Intergalactic_Spaceship-(Wavefront).mtl'
 //         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
 //     },
 //     undefined);
+// var map = new THREE.TextureLoader().load( "sprite.png" );
+// var material = new THREE.SpriteMaterial( { map: map, color: 0xffffff } );
+// var sprite = new THREE.Sprite( material );
+// scene.add( sprite );
+
 
 
 camera.position.x = 0;
@@ -240,6 +293,13 @@ function onWindowResize(){
 
 const animate = function () {
     requestAnimationFrame( animate );
+
+    try {
+        scene.getObjectByName("blackhole1text").lookAt(Character.position);
+        scene.getObjectByName("blackhole2text").lookAt(Character.position);
+    } catch (error) {
+        console.log(error);
+    }
     
     if (characterController) {
         characterController.update();
@@ -583,11 +643,17 @@ class Blackhole {
         let temp = new THREE.Vector3(Character.position.x, Character.position.y, Character.position.z);
         temp.sub(this.mesh.position);
         temp.setLength(2);
-        this.blackMesh.position.set(this.mesh.position.x + temp.x, this.mesh.position.y + temp.y, this.mesh.position.z + temp.z)
+        this.blackMesh.position.set(this.mesh.position.x + temp.x, this.mesh.position.y + temp.y, this.mesh.position.z + temp.z);
+
+        let dist = this.mesh.position.distanceTo(Character.position);
+        dist = 10/dist;
+        temp.setLength(- 20 * dist);
+        Character.position.add(temp);
+
     }
 }
-let blackhole1 = new Blackhole(new THREE.Vector3(100, 0, 0));
-let blackhole2 = new Blackhole(new THREE.Vector3(100, 1000, 0));
+let blackhole1 = new Blackhole(new THREE.Vector3(100, -1000, -200));
+let blackhole2 = new Blackhole(new THREE.Vector3(100, 1000, 500));
 
 
 

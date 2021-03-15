@@ -4,7 +4,8 @@ let serverTime;
 let clientIsMobile = false;
 
 function connect() {
-	socket = io.connect('192.168.129.241:3000');
+	socket = io.connect("192.168.129.241:3000");
+
 	socket.emit('establishConnection', {
 		gameType: "Platformer",
 		isMobile: clientIsMobile
@@ -113,38 +114,41 @@ function connect() {
 			game.players.syncDelete(data, "player");
 		}
 	);
-
+	
 	socket.on('gameOver',
 		function(data) {
 			
-			const loader = new THREE.FontLoader();
+			// const loader = new THREE.FontLoader();
 
-			loader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
-				const geometry = new THREE.TextGeometry( data.highestHolder + " has won!", {
-					font: font,
-					size: 2,
-					height: 2,
-					curveSegments: 12,
-					bevelEnabled: true,
-					bevelThickness: 0.1,
-					bevelSize: 0.1,
-					bevelOffset: 0,
-					bevelSegments: 5
-				} );
-				const material = new THREE.MeshStandardMaterial({color: 0x00ff00});
-				const mesh = new THREE.Mesh(geometry, material);
+			// loader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+			// 	const geometry = new THREE.TextGeometry( data.highestHolder + " has won!", {
+			// 		font: font,
+			// 		size: 2,
+			// 		height: 2,
+			// 		curveSegments: 12,
+			// 		bevelEnabled: true,
+			// 		bevelThickness: 0.1,
+			// 		bevelSize: 0.1,
+			// 		bevelOffset: 0,
+			// 		bevelSegments: 5
+			// 	} );
+			// 	const material = new THREE.MeshStandardMaterial({color: 0x00ff00});
+			// 	const mesh = new THREE.Mesh(geometry, material);
 
-				mesh.position.z = 20;
-				mesh.rotation.y = Math.PI;
+			// 	mesh.position.z = 20;
+			// 	mesh.rotation.y = Math.PI;
 
-				mesh.name = "text";
-				scene.add(mesh);
+			// 	mesh.name = "text";
+			// 	scene.add(mesh);
 
-				let text = scene.getObjectByName("text");
-				camera.position.set(text.position.x - 15, text.position.y, text.position.z - 20);
-				camera.lookAt(text.position.x - 15, text.position.y, text.position.z);
-				bGameOver = true;
-			} );
+			// 	let text = scene.getObjectByName("text");
+			let element = document.getElementById("gameover");
+			// element.innerHTML = data.highestHolder + " has won!";
+			element.innerHTML = data.id + " won the game!";
+			
+			// camera.position.set(text.position.x - 15, text.position.y, text.position.z - 20);
+			// camera.lookAt(text.position.x - 15, text.position.y, text.position.z);
+			bGameOver = true;
 		}
 	);
 }

@@ -64,7 +64,7 @@ class PhysicsWorld {
             } 
         }
 
-        for (let i = 0; i < this.dynamicColliders.length; i++) {
+        for (let i = this.dynamicColliders.length-1; i >= 0; i--) {
 
             this.dynamicColliders[i].updateMotionState();
             this.dynamicColliders[i].resetTouchingVertices();

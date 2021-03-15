@@ -3,12 +3,17 @@ const Game = require('../games/super/game.js')
 const TankWars = require('../games/tankwars/tankwars.js');
 const Platformer = require('../games/platformer/platformer.js');
 
+console.log(process.argv[2]);
 
 class Server {
     constructor() {
         // IO
-        this.ip = '192.168.129.241';
-        this.port = 3000;
+        if (process.argv[2] == "local") {
+            this.ip = '192.168.129.241';
+            this.port = 3000;
+        } else {
+            this.port = process.env.PORT || 80;
+        }
 
         this.express = require('express');
         this.path = require('path');
@@ -42,6 +47,10 @@ class Server {
     mainPhysicsLoop() {
         for (let i = 0; i < this.games.length; i++) {
             this.games[i].loop();
+            if (this.games[i].delete) {
+                console.log("DELETE: ", this.games[i])
+                this.games.splice(i, 1);
+            }
         }
     }
 

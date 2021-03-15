@@ -55,9 +55,9 @@ document.addEventListener('keydown',
 				location.reload();
 			}
 		}
-		if (event.key == "Enter") {
+		if (event.key == "Escape") {
 			if (bGameOver) {
-				location.replace("");
+				location.replace("/");
 			}
 		}
 

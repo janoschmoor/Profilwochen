@@ -40,9 +40,14 @@ document.addEventListener('keydown',
 			event.preventDefault();
 			game.toggleLeaderBoard = true;
 		}
+		if (event.key == " ") {
+			if (bGameOver) {
+				location.reload();
+			}
+		}
 		if (event.key == "Escape") {
 			if (bGameOver) {
-				location.replace = "";
+				location.replace("/");
 			}
 		}
 		socket.emit('clientUpdate', input);

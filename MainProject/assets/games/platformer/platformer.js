@@ -23,7 +23,9 @@ class Platformer {
 
         this.physicsWorld = new PhysicsWorld(this.maps.maps[Math.floor(Math.random() * this.maps.maps.length)], this);
         
-        this.totalRounds = Math.floor(5 + Math.random()*10);
+
+        // this.totalRounds = Math.floor(5 + Math.random()*10);
+        this.totalRounds = 2
         this.round = this.totalRounds;
         this.timer = Date.now()+60000;
 
@@ -169,6 +171,7 @@ class Platformer {
         }
         console.log(highestHolder + " won with score " + highest);
         server.io.to(this.id).emit("gameOver", {id: highestHolder, score: highest});
+        this.delete = true;
     }
 
     isOpen(data) {
