@@ -2,7 +2,7 @@ var socket;
 var keyVar;
 
 function connect(name) {
-    socket = io.connect('192.168.129.178:3000');
+    socket = io.connect('192.168.129.241:3000');
     
     listen();
 

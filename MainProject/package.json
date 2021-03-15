@@ -24,6 +24,7 @@
   "homepage": "https://github.com/janoschmoor/ProfIT#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "howler": "^2.2.1",
     "socket.io": "^3.1.0",
     "three": "^0.125.2"
   }

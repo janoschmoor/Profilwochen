@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Platformer</title>
+		<style>
+			body { margin: 0; }
+			.p1 {
+				position: absolute;
+				margin: 1cm;
+  				font-family: "Copperplate", Times, serif;
+				margin-top: 2cm;
+			}
+			.p2 {
+				position: absolute;
+				margin: 1cm;
+  				font-family: "Copperplate", Times, serif;
+				margin-top: 1cm;
+			}
+		</style>
+
+		<script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+		<script src="lib/three.min.js"></script>
+
+		<script src="platformer/io.js"></script>
+		<script src="platformer/player.js"></script>
+		<script src="platformer/platformer.js"></script>
+
+		<script src="platformer/physics2/lib/vector2d.js"></script>
+		<script src="platformer/physics2/physicsengine/collisionshapes.js"></script>
+		<script src="platformer/physics2/physicsengine/chunk.js"></script>
+		<script src="platformer/physics2/physicsengine/collider.js"></script>
+		<script src="platformer/physics2/physicsengine/entity.js"></script>
+		<script src="platformer/physics2/physicsengine/playercollider.js"></script>
+		<script src="platformer/physics2/physicsengine/sensor.js"></script>
+		<script src="platformer/physics2/physicsengine/physicsworld.js"></script>
+
+		<script src="platformer/sychronizedlists.js"></script>
+		<!-- <script src="universals/vector2d.js"></script> -->
+
+	</head>
+	<body>
+		
+		<p class="p1" id="timer">no config done</p>
+		<p class="p2" id="rounds">no config done</p>
+
+		<script src="platformer/init.js"></script>
+	</body>
+</html>

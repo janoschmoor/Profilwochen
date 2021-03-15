@@ -5,7 +5,7 @@ var serverTime;
 var clientIsMobile = false;
 
 function connect() {
-	socket = io.connect('192.168.129.201:3000');
+	socket = io.connect('192.168.129.225:3000');
 	socket.emit('establishConnection', {
 		gameType: "Game",
 		isMobile: clientIsMobile

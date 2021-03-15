@@ -51,6 +51,13 @@ class Game {
         }
         return {id: this.id, type: this.type, state: this.state, players: _players, map: this.map}
     }
+
+    isOpen(data) {
+        if (this.type === data.gameType && ((this.state === "waiting" && this.players.length < this.maxPlayers) || (this.state === "running" && this.players.length < this.maxPlayers))) {
+            return true;
+        }
+        return false;
+    }
 }
 
 module.exports = Game;

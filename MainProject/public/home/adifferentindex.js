@@ -1,5 +1,7 @@
 import * as THREE from '/build/three.module.js';
 import {GLTFLoader} from '/jsm/loaders/GLTFLoader.js';
+import {OBJLoader} from '/jsm/loaders/OBJLoader.js';
+
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 
 const renderer = new THREE.WebGLRenderer({antialias: true});
@@ -15,26 +17,23 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 const controls = new OrbitControls(camera, renderer.domElement);
 const loader = new GLTFLoader();
 
-const ambientLight = new THREE.AmbientLight(0xa0a0a0);
 
-const light = new THREE.PointLight( 0xffffff, 3, 10000 );
-light.position.set( 0, 25, 0 );
-light.castShadow = true;
+const light1 = new THREE.PointLight( 0xffffff, 3, 10000 );
+const light2 = new THREE.PointLight( 0xffffff, 3, 10000 );
+const light3 = new THREE.PointLight( 0xffffff, 3, 10000 );
+const light4 = new THREE.PointLight( 0xffffff, 3, 10000 );
 
+light1.position.set( 0, 100, 0 );
+light2.position.set( 100, 0, 0 );
+light3.position.set( -100, 0, 0 );
+light4.position.set( 0, -100, 0 );
 
-scene.add( light );
-scene.add(ambientLight);
-
-light.shadow.mapSize.width = 2048; // default
-light.shadow.mapSize.height = 2048; // default
-light.shadow.camera.near = 10; // default
-light.shadow.camera.far = 200; // default
+scene.add( light1, light2, light3, light4 );
 
 loader.load(
-    '/testMap.gltf',
-    function(gltf) {
-        var model = gltf.scene;
-        scene.add(model);
+    './janoschkopf.gltf',
+    function(obj) {
+        scene.add(obj.scene);
 
         // scene.getObjectByName('Cube').receiveShadow = true;
 

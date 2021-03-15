@@ -1,12 +1,13 @@
 const TimeManager = require('./timemanager');
 const Game = require('../games/super/game.js')
 const TankWars = require('../games/tankwars/tankwars.js');
+const Platformer = require('../games/platformer/platformer.js');
 
 
 class Server {
     constructor() {
         // IO
-        this.ip = '192.168.129.207';
+        this.ip = '192.168.129.241';
         this.port = 3000;
 
         this.express = require('express');
@@ -17,7 +18,10 @@ class Server {
         
         this.app.use('/build/', this.express.static(this.path.join(__dirname, '../../node_modules/three/build')));
         this.app.use('/jsm/', this.express.static(this.path.join(__dirname, '../../node_modules/three/examples/jsm')));
+        this.app.use('/fonts/', this.express.static(this.path.join(__dirname, '../../node_modules/three/examples/fonts')));
         this.app.use('/home/', this.express.static(this.path.join(__dirname, '../../../public/home')));
+        // this.app.use('/howler/', this.express.static(this.path.join(__dirname, '../../node_modules/howler')));
+
         
         this.server = this.app.listen(this.port, this.ip);
         
@@ -30,7 +34,7 @@ class Server {
         this.physicsTimeStep = 0;
 
         this.clients = [];
-        this.availableGames = ["Game", "TankWars"];
+        this.availableGames = ["Game", "TankWars", "Platformer"];
         this.games = [];
 
     }
@@ -58,8 +62,8 @@ class Server {
             function (socket) {
                 socket.on('establishConnection',
                     function(data) {
-                        let index = server.games.findIndex(game => game.type === data.gameType && ((game.state === "waiting" && game.players.length < game.maxPlayers) || (game.state === "running" && game.players.length < game.maxPlayers)));
-                        if (index >= 0) {
+                        let index = server.games.findIndex(game => game.isOpen(data) === true);
+                        if (index != -1) {
                             server.clients.push(server.games[index].returnPlayer(socket.id, data.isMobile));
                             server.games[index].addPlayer(server.clients[server.clients.length - 1]);
                             socket.join(server.games[index].id);

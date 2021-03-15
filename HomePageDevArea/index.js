@@ -1,31 +1,13 @@
-//variable declaration section
-let physicsWorld, scene, camera, renderer, rigidBodies = []
+let ip = '192.168.129.225';
+let port = 3000;
 
-//Ammojs Initialization
-Ammo().then(start)
+let express = require('express');
 
-function start (){
+let app = express();
+app.use(express.static('public'));
 
-    tmpTrans = new Ammo.btTransform();
+let server = app.listen(port, ip);
 
-    setupPhysicsWorld();
+let io = require('socket.io')(server);
 
-    setupGraphics();
-    createBlock();
-    createBall(20);
-    createBrick();
-    // createBall(20);
-    // createBall(30);
-    // createBall(20);
-    // createBall(30);
-
-    renderFrame();
-
-}
-
-
-
-
-
-
-
+console.log("done")

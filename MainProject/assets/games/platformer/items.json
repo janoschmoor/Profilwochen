@@ -1,0 +1,76 @@
+{
+	"items": [
+		{
+            "type": "stationary_rectangle",
+			"size": {"width": 1, "height": 1},
+			"relativePos": {"x": 1, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0xffffff"
+        },
+        {
+            "type": "stationary_rectangle",
+			"size": {"width": 4, "height": 1},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0xffffff"
+		},
+		{
+            "type": "stationary_rectangle",
+			"size": {"width": 4, "height": 1},
+			"relativePos": {"x": 1, "y": 0},
+			"angle": -0.7854,
+			"angularVel": 0,
+			"color": "0xffffff"
+        },
+        {
+            "type": "stationary_rectangle",
+			"size": {"width": 4, "height": 1},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0.7854,
+			"angularVel": 0,
+			"color": "0xffffff"
+		},
+        {
+            "type": "wiretrap",
+			"size": {"width": 1, "height": 0.3},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0xffffff"
+		},
+        {
+            "type": "rotating_rectangle",
+			"size": {"width": 1, "height": 6},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 12,
+			"angularVel": 0.07,
+			"color": "0xffffff"
+		},
+        {
+            "type": "portal",
+			"size": {"width": 1, "height": 1.5},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0.07,
+			"color": "0xffffff"
+		},
+		{
+            "type": "turret",
+			"size": {"width": 0.5, "height": 2},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0xffffff"
+		},
+		{
+            "type": "forcefield",
+			"size": {"width": 1, "height": 1},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0xffffff"
+		}
+	]
+}

@@ -197,7 +197,7 @@ class TankWarsPlayer extends Client {
                     this.game.players[index].weapon = eval("new " + this.game.players[index].weapon.nextWeapon + `(${this.game.players[index].tier})`);
                     this.game.nextUpdate.specials.push({id: this.game.players[index].id, weapon: this.game.players[index].weapon, type: "newWeapon", tier: this.game.players[index].tier});
                     this.game.players[index].health += (100 - this.game.players[index].health) / 2;
-                    this.game.players[index].kills += 1;
+                    this.game.players[index].kills += 1;       
                 }
                 this.dead = true;
             }
