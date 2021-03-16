@@ -10,6 +10,7 @@ class PlayerCollider extends Entity {
         
         this.type = this.constructor.name;
 
-		this.mass = playerCollider.mass;
+        this.mass = playerCollider.mass;
+        
     }
 }

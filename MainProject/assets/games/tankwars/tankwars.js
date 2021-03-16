@@ -22,7 +22,7 @@ class TankWars {
         terminal.log("created new " + this.constructor.name + ", teamMode: " + this.teamMode);
     }
     
-    removePlayer(id) {
+    removePlayer(id, ip) {
         let index = this.players.findIndex(player => player.id === id);
 
         this.players.splice(index, 1);

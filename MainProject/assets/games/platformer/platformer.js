@@ -21,7 +21,8 @@ class Platformer {
         this.maps = require('./maps.json');
         this.items = require('./items.json').items;
 
-        this.physicsWorld = new PhysicsWorld(this.maps.maps[Math.floor(Math.random() * this.maps.maps.length)], this);
+        this.mapIndex = Math.floor(Math.random() * this.maps.maps.length);
+        this.physicsWorld = new PhysicsWorld(this.maps.maps[this.mapIndex], this);
         
 
         // this.totalRounds = Math.floor(5 + Math.random()*10);
@@ -29,24 +30,37 @@ class Platformer {
         this.round = this.totalRounds;
         this.timer = Date.now()+60000;
 
+        this.lastDisconnectedIp = null;
+
         terminal.log("created new " + this.constructor.name);
     }
     
-    removePlayer(id) {
+    removePlayer(id, ip) {
+        this.lastDisconnectedIp = ip;
         let index = this.players.findIndex(player => player.id === id);
         this.players.splice(index, 1);
 
         this.physicsWorld.remove(id);
     }
 
-    addPlayer(player) {
+    addPlayer(player, ip) {
         this.players.push(player);
-        this.players[this.players.length-1].state = "playing";
-
-        let temp = new PlayerCollider(this.physicsWorld, player.id, "0x222222",new Vector2D(this.maps.maps[1].startChunk.x * this.maps.maps[1].chunkSize, this.maps.maps[1].startChunk.y * this.maps.maps[1].chunkSize), 0, player);
-
+        
+        let temp = new PlayerCollider(this.physicsWorld, player.id, "0x222222",new Vector2D(this.maps.maps[this.mapIndex].startChunk.x * this.maps.maps[this.mapIndex].chunkSize, this.maps.maps[this.mapIndex].startChunk.y * this.maps.maps[this.mapIndex].chunkSize), 0, player);
+        
         this.physicsWorld.add(temp);
         this.players[this.players.length - 1].collider = this.physicsWorld.colliders[this.physicsWorld.colliders.length - 1];
+
+        if (this.state == "playing" || this.state == "waiting") {
+            this.players[this.players.length-1].state = "playing";
+        } else if (this.state == "building") {
+            this.players[this.players.length-1].state = "building";
+            if (!(ip == this.lastDisconnectedIp)) {
+                this.players[this.players.length-1].takeItem();
+            } else {
+                this.players[this.players.length-1].item = false;
+            }
+        }
     }
 
     returnPlayer(id, isMobile) {

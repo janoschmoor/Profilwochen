@@ -70,7 +70,12 @@ class PhysicsWorld {
             this.dynamicColliders[i].resetTouchingVertices();
 
             for (let j = 0; j < this.staticColliders.length; j++) {
-                this.dynamicColliders[i].performCollision(this.staticColliders[j]);
+                try {
+                    this.dynamicColliders[i].performCollision(this.staticColliders[j]);
+
+                } catch {
+                    console.error("greetings from phyiscsengine 73 :)")
+                }
             }
             for (let j = 0; j < this.dynamicColliders.length; j++) {
                 if (j != i) {
@@ -162,10 +167,10 @@ class PhysicsWorld {
         this.nextColliderId++;
         this.add(sensor2);
 
-        let collider = new Collider(this, this.nextColliderId, "0xff0000", new Vector2D(this.startChunk.x * this.chunkSize + this.chunkSize / 2, (this.startChunk.y + 1 + (0.5 / this.chunkSize)) * this.chunkSize), new Rectangle(this.chunkSize + 2, 1));
+        let collider = new Collider(this, this.nextColliderId, "0xff0000", new Vector2D(this.startChunk.x * this.chunkSize + this.chunkSize / 2, (this.startChunk.y + 1 + (0.5 / this.chunkSize)) * this.chunkSize + 0.5), new Rectangle(this.chunkSize + 2, 2));
         this.nextColliderId++;
         this.add(collider);
-        let collider2 = new Collider(this, this.nextColliderId, "0xff0000", new Vector2D(this.endChunk.x * this.chunkSize + this.chunkSize / 2, (this.endChunk.y + 1 + (0.5 / this.chunkSize)) * this.chunkSize), new Rectangle(this.chunkSize + 2, 1));
+        let collider2 = new Collider(this, this.nextColliderId, "0xff0000", new Vector2D(this.endChunk.x * this.chunkSize + this.chunkSize / 2, (this.endChunk.y + 1 + (0.5 / this.chunkSize)) * this.chunkSize + 0.5), new Rectangle(this.chunkSize + 2, 2));
         this.nextColliderId++;
         this.add(collider2);
     }

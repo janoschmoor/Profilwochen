@@ -6,7 +6,7 @@ let clientIsMobile = false;
 let hud = {weapon : {name: "TankWarsWeapon"}};
 
 function connect() {
-	socket = io.connect("192.168.129.241:3000");
+	socket = io.connect("192.168.129.161:3000");
 
 	socket.emit('establishConnection', {
 		gameType: "TankWars",

@@ -10,6 +10,19 @@ let background = two.makeGroup();
 let foreground = two.makeGroup();
 
 let weaponText = two.makeText("", window.innerWidth - 200, window.innerHeight - 20);
+let ControlText1 = two.makeText("W: Forward  S: Backward  A: Rotate left  D: Rotate Right", window.innerWidth - window.innerWidth / 1.2, window.innerHeight - 100);
+let ControlText2 = two.makeText("Press Space to shoot", window.innerWidth - window.innerWidth / 1.2, window.innerHeight - 80);
+
+let cta = 0;
+let st = true;
+
+ControlText1.scale = 1.4;
+ControlText2.scale = 1.4;
+ControlText1.family = font;
+ControlText2.family = font;
+
+
+
 weaponText.scale = 2;
 weaponText.family = font;
 
@@ -122,6 +135,14 @@ two.bind('update',
 			input.state = "dead";
 			socket.emit("clientUpdate", input);
 			delete input.state;
+		}
+
+		if (st) {
+			cta += 1;
+			if (cta >= 1200) {
+				st = false;
+				two.remove(ControlText1, ControlText2);
+			}
 		}
 
 		let xOffset = -(me.pos.x * me.scope - window.innerWidth / 2);

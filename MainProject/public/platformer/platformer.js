@@ -4,6 +4,8 @@ class Platformer {
 		this.timeOfLastPhysicsEstimation = Date.now();
 		this.isConnected = false;
 		this.players = [];
+		this.alive = 0;
+		this.showControls = true;
 	}
 	
 	buildGame(data) {
@@ -26,8 +28,8 @@ class Platformer {
 		this.type = data.game.type;
 		this.state = data.game.state;
 		this.physicsWorld = new PhysicsWorld(data.game.physicsWorld);
-		for (let i = 0; i < this.physicsWorld.colliders.length; i++) {
-			this.makeObject(this.physicsWorld.colliders[i]);
+		for (let i = 0; i < data.game.physicsWorld.colliders.length; i++) {
+			this.makeObject(data.game.physicsWorld.colliders[i]);
 		}
 		character = scene.getObjectByName(me.id);
 		animate();
@@ -61,7 +63,7 @@ class Platformer {
 			material.transparent = true;
 			material.opacity = 0.5;
 		} else if (collider.type == "PlayerCollider") {
-			let playerCollider = new PlayerCollider(collider);
+			// let playerCollider = new PlayerCollider(collider);
 			// this.physicsWorld.add(playerCollider);
 			material.color.set(eval(collider.color));
 		} else if (collider.type == "Portal") {
@@ -79,15 +81,54 @@ class Platformer {
 		mesh.translateY(-collider.pos.y);
 
 		mesh.name = collider.id.toString();
-
 		scene.add(mesh);
+
+		let newCollider;
+		if (collider.type == "Entity") {
+			newCollider = new Entity(collider);
+			this.physicsWorld.add(newCollider);
+		} else if (collider.type == "PlayerCollider") {
+			newCollider = new PlayerCollider(collider);
+			this.physicsWorld.add(newCollider);
+		} else if (collider.type == "Sensor") {
+			newCollider = new Sensor(collider);
+			this.physicsWorld.add(newCollider);
+		} else {
+			newCollider = new Collider(collider);
+			this.physicsWorld.add(newCollider);
+		}
+
+		if (collider.type == "ForceField") {
+			newCollider.noCollide = true;
+		}
+		if (collider.type == "Portal") {
+			newCollider.noCollide = true;
+		}
+
+		this.physicsWorld.colliders[this.physicsWorld.colliders.length-1].buildVertecies();
+		// console.log(this.physicsWorld.colliders[this.physicsWorld.colliders.length-1].boundingBox)
 	}
 
 	loop() {
 		let element = document.getElementById("timer");
 		element.innerHTML = Math.round((game.timer - Date.now()) / 1000);
+
 		element = document.getElementById("rounds");
 		element.innerHTML = "Round " + (Math.abs(this.totalRounds - this.round)+1) + " / " + this.totalRounds;
+
+		if (this.showControls) {
+			if (this.alive >= 300) {
+				this.showControls = false;
+				element = document.getElementById("controls1");
+				element.innerHTML = "";
+				element.parentNode.removeChild(element);
+
+				element = document.getElementById("controls2");
+				element.innerHTML = "";
+				element.parentNode.removeChild(element);
+			}
+			this.alive += 1;
+		}
 
 		if (this.state == "playing") {
 			this.physicsWorld.run();

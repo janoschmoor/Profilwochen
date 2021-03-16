@@ -20,26 +20,6 @@ class PhysicsWorld {
 
         this.collidersToDelete = [];
         
-        for (let i = 0; i < physicsWorld.colliders.length; i++) {
-            let collider = physicsWorld.colliders[i];
-            if (physicsWorld.colliders[i].type == "Collider") {
-                console.log("Collider");
-                collider = new Collider(collider);
-                this.add(collider);
-            } else if (physicsWorld.colliders[i].type == "Entity") {
-                console.log("Entity");
-                collider = new Entity(collider);
-                this.add(collider);
-            } else if (physicsWorld.colliders[i].type == "PlayerCollider") {
-                console.log("PlayerCollider");
-                collider = new PlayerCollider(collider);
-                this.add(collider);
-            } else if (physicsWorld.colliders[i].type == "Sensor") {
-                console.log("Sensor");
-                collider = new Sensor(collider);
-                this.add(collider);
-            }
-        }
     }
     
     run() {
@@ -52,7 +32,10 @@ class PhysicsWorld {
             this.dynamicColliders[i].updateMotionState();
 
             for (let j = 0; j < this.staticColliders.length; j++) {
-                this.dynamicColliders[i].performCollision(this.staticColliders[j]);
+                if (!this.staticColliders[j].noCollide) {
+                    this.dynamicColliders[i].performCollision(this.staticColliders[j]);
+                    
+                }
             }
         }
     }

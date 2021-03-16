@@ -3,18 +3,24 @@ class Collider {
         this.id = collider.id;
 
         this.pos = new Vector2D(collider.pos.x, collider.pos.y);
+        if (collider.vel) {
+            this.vel = new Vector2D(collider.vel.x, collider.vel.y);
+            this.acc = new Vector2D(0, 0);
+            this.angularVel = collider.angularVel;
+            this.angularAcc = 0;
+        }
+        
         this.vertexBuilder = collider.vertexBuilder;
         this.angle = collider.angle;
+        // console.log("angleeeeeeee", this.angle)
 
         this.vertecies = [];
         this.boundingBox = {relativePos: new Vector2D(0,0), size: new Vector2D(0,0)}
         this.buildVertecies();
 
-        if (collider.mass) {
-            this.mass = this.vertecies.calculateMass();
-        } else {
-            this.mass = collider.mass;
-        }
+        
+        this.mass = collider.mass;
+        
         
         this.elasticity = collider.elasticity;
         this.staticFrition = collider.staticFrition;
@@ -22,7 +28,7 @@ class Collider {
         this.sleep = collider.sleep;
         this.isActive = collider.isActive;
         
-        this.type = this.constructor.name;
+        this.type = collider.type;
 
         this.color = collider.color;
     }
@@ -52,6 +58,10 @@ Collider.prototype.rotate = function (angle) {
     this.angle += angle;
     this.buildVertecies();
 }
+Collider.prototype.setAngle = function (angle) {
+    this.angle = angle;
+    this.buildVertecies();
+}
 Collider.prototype.updateBoundingBox = function () {
     let _max = new Vector2D(-1000000000, -1000000000);
     let _min = new Vector2D(1000000000, 1000000000);
@@ -73,6 +83,9 @@ Collider.prototype.performBoundingBoxCollision = function(other) {
         this.pos.y + this.boundingBox.relativePos.y + this.boundingBox.size.y > other.pos.y + other.boundingBox.relativePos.y
     ) {
         return true;
+    } else {
+        // console.log(this.boundingBox.relativePos);
+        return false;
     }
 }
 Collider.prototype.performSAT = function (other) {
@@ -204,6 +217,7 @@ Collider.prototype.updateMotionState = function() {
         this.vel.add(this.acc);
         this.pos.add(this.vel._magnitude(this.vel.magnitude() * game.physicsWorld.timestep));
         this.rotate(this.angularVel * game.physicsWorld.timestep);
+        // console.log(this.angularVel)
 
 
         this.acc.set(0,0);
@@ -227,18 +241,17 @@ Collider.prototype.angularMotionUpdate = function(angularProjection, vertex) {
     
     // this.angularVel += angle * game.physicsWorld.timestep;
 }
-Collider.prototype.getAngularMotionCorrection = function(projectionAxis, vertexIndex) {
-    let vertexProjection = projectionAxis.scalarProduct(this.vertecies[vertexIndex]._add(this.pos));
-    let centerProjection = projectionAxis.scalarProduct(this.pos);
+// Collider.prototype.getAngularMotionCorrection = function(projectionAxis, vertexIndex) {
+//     let vertexProjection = projectionAxis.scalarProduct(this.vertecies[vertexIndex]._add(this.pos));
+//     let centerProjection = projectionAxis.scalarProduct(this.pos);
 
-    let scalar = (centerProjection - vertexProjection);
-    let angularMotionCorrection = scalar * (this.vertecies[vertexIndex].magnitude() ** 2) / this.mass;
+//     let scalar = (centerProjection - vertexProjection);
+//     let angularMotionCorrection = scalar * (this.vertecies[vertexIndex].magnitude() ** 2) / this.mass;
 
-    return angularMotionCorrection;
-}
+//     return angularMotionCorrection;
+// }
 Collider.prototype.performCollision = function(other) {
     if (this.performBoundingBoxCollision(other)) {
-
         if (this.performSAT(other)) {
             let theseVertexIndecies = this.performPointSAT(other);
             let otherVertexIndecies = other.performPointSAT(this);
@@ -312,6 +325,7 @@ Collider.prototype.performSickMotionCalulation = function(other, theseVertexInde
             // this.vel.add(new Vector2D(translationCorrection.vertex.x, translationCorrection.vertex.y).magnitude(-(this.vel.magnitude() * (1 + this.elasticity)) * game.physicsWorld.timestep));
             // this.vel.add(new Vector2D(this.vel.x, this.vel.y).magnitude(-(this.vel.magnitude() * (1 + this.elasticity))));
             this.vel.y = 0;
+
 
             // ARCHIVED!
             // let side = new Vector2D(-translationCorrection.vector.y, translationCorrection.vector.x);

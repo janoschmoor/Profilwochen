@@ -112,8 +112,6 @@ function restoreMaterial( obj ) {
     }
 
 }
-            
-
 
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
 scene.add(hemisphereLight);
@@ -290,13 +288,40 @@ function onWindowResize(){
 
 }
 
+let dir = new THREE.Vector3(0, 0, 0);
+let temp = new THREE.Vector3(0, 0, 0);
+let tempC;
+let tempBH;
 
 const animate = function () {
     requestAnimationFrame( animate );
 
     try {
+        tempC = new THREE.Vector3(0, 0, 0);
+        tempBH = new THREE.Vector3(0, 0, 0);
+        tempC.copy(Character.position);
+        tempBH.copy(blackhole1.mesh.position);
+
+        dir.subVectors(tempC, tempBH);
+        dir.setLength(50);
+        temp.addVectors(tempBH, dir);
+
         scene.getObjectByName("blackhole1text").lookAt(Character.position);
+        scene.getObjectByName("blackhole1text").position.set(temp.x, temp.y, temp.z);
+
+
+        tempC = new THREE.Vector3(0, 0, 0);
+        tempBH = new THREE.Vector3(0, 0, 0);
+        tempC.copy(Character.position);
+        tempBH.copy(blackhole2.mesh.position);
+
+        dir.subVectors(tempC, tempBH);
+        dir.setLength(50);
+        temp.addVectors(tempBH, dir);
+
         scene.getObjectByName("blackhole2text").lookAt(Character.position);
+        scene.getObjectByName("blackhole2text").position.set(temp.x, temp.y, temp.z);
+
     } catch (error) {
         console.log(error);
     }

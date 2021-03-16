@@ -138,12 +138,10 @@ function cameraLookAt() {
 		camera.lookAt(object.position);
 
 	} else {
-
 		object = scene.getObjectByName(me.id);
 		tv.set(object.position.x, 3 + object.position.y, 15 + object.position.z);
 		camera.position.set(tv.x, tv.y, tv.z);
 		camera.lookAt(object.position);
-
 	}
 }
 

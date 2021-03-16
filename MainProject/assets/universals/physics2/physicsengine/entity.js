@@ -29,6 +29,7 @@ Entity.prototype.getUpdate = function() {
         id: this.id,
         pos: this.pos,
         angle: this.angle,
+        angularVel: this.angularVel,
         vel: this.vel
     }
 }
@@ -48,6 +49,7 @@ Entity.prototype.returnSelf = function() {
         id: this.id,
         pos: this.pos,
         vel: this.vel,
+        angularVel: this.angularVel,
         vertexBuilder: this.vertexBuilder,
         angle: this.angle,
 

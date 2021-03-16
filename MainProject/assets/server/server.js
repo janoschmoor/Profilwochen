@@ -9,7 +9,7 @@ class Server {
     constructor() {
         // IO
         if (process.argv[2] == "local") {
-            this.ip = '192.168.129.241';
+            this.ip = '192.168.129.161';
             this.port = 3000;
         } else {
             this.port = process.env.PORT || 80;
@@ -48,7 +48,7 @@ class Server {
         for (let i = 0; i < this.games.length; i++) {
             this.games[i].loop();
             if (this.games[i].delete) {
-                console.log("DELETE: ", this.games[i])
+                terminal.log("deleted game: " + this.games[i].id + " of type: " + this.games[i].type);
                 this.games.splice(i, 1);
             }
         }
@@ -74,7 +74,7 @@ class Server {
                         let index = server.games.findIndex(game => game.isOpen(data) === true);
                         if (index != -1) {
                             server.clients.push(server.games[index].returnPlayer(socket.id, data.isMobile));
-                            server.games[index].addPlayer(server.clients[server.clients.length - 1]);
+                            server.games[index].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address);
                             socket.join(server.games[index].id);
                             let gameAndId = {
                                 game: server.games[index].returnGame(),
@@ -85,7 +85,7 @@ class Server {
                         } else if (server.availableGames.includes(data.gameType)) {
                             server.games.push(eval("new " + data.gameType + "()"));
                             server.clients.push(server.games[server.games.length - 1].returnPlayer(socket.id, data.isMobile));
-                            server.games[server.games.length - 1].addPlayer(server.clients[server.clients.length - 1]);
+                            server.games[server.games.length - 1].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address);
                             socket.join(server.games[server.games.length - 1].id);
                             let gameAndId = {
                                 game: server.games[server.games.length - 1].returnGame(),
@@ -105,7 +105,7 @@ class Server {
                             let gameIndex = server.games.findIndex(game => game.id === server.clients[index].game.id);
                             if (gameIndex != -1) {
                                 server.clients.splice(index, 1);
-                                server.games[gameIndex].removePlayer(socket.id);
+                                server.games[gameIndex].removePlayer(socket.id, socket.handshake.address);
                                 socket.to(server.games[gameIndex].id).emit('removePlayer', socket.id);
 
                                 if (server.games[gameIndex].players.length == 0) {

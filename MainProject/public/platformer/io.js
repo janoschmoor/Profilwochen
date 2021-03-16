@@ -4,7 +4,7 @@ let serverTime;
 let clientIsMobile = false;
 
 function connect() {
-	socket = io.connect("192.168.129.241:3000");
+	socket = io.connect("192.168.129.161:3000");
 
 	socket.emit('establishConnection', {
 		gameType: "Platformer",
@@ -25,9 +25,11 @@ function connect() {
 					if (index != -1) {
 						game.physicsWorld.colliders[index].pos = new Vector2D(data.colliderUpdates[i].pos.x, data.colliderUpdates[i].pos.y);
 						if (data.colliderUpdates[i].vel) {
-							game.physicsWorld.colliders[index].vel =  new Vector2D(data.colliderUpdates[i].vel.x, data.colliderUpdates[i].vel.y);
+							game.physicsWorld.colliders[index].vel = new Vector2D(data.colliderUpdates[i].vel.x, data.colliderUpdates[i].vel.y);
+							game.physicsWorld.colliders[index].angularVel = data.colliderUpdates[i].angularVel;
+							// game.physicsWorld.colliders[index].angle = ;
+							game.physicsWorld.colliders[index].setAngle(data.colliderUpdates[i].angle);
 						}
-						game.physicsWorld.colliders[index].angle = data.colliderUpdates[i].angle;
 					}
 				}
 				cameraLookAt();

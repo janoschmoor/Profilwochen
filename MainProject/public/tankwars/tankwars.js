@@ -11,6 +11,9 @@ class TankWars {
 		this.leaderBoardCreated = false;
 		this.lbRects = [];
 		this.lbTexts = [];
+
+		this.alive = 0;
+		this.showControls = true;
 	}
 	
 	buildGame(data) {
