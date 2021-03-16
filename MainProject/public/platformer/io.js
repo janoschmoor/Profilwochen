@@ -146,7 +146,11 @@ function connect() {
 			// 	let text = scene.getObjectByName("text");
 			let element = document.getElementById("gameover");
 			// element.innerHTML = data.highestHolder + " has won!";
-			element.innerHTML = data.id + " won the game!";
+			if (data.id == me.id) {
+				element.innerHTML = "You won the game!";
+			} else {
+				element.innerHTML = data.id + " won the game!";
+			}
 			
 			// camera.position.set(text.position.x - 15, text.position.y, text.position.z - 20);
 			// camera.lookAt(text.position.x - 15, text.position.y, text.position.z);

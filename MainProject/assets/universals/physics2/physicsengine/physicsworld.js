@@ -68,21 +68,21 @@ class PhysicsWorld {
 
             this.dynamicColliders[i].updateMotionState();
             this.dynamicColliders[i].resetTouchingVertices();
+            try {
 
-            for (let j = 0; j < this.staticColliders.length; j++) {
-                try {
+                for (let j = 0; j < this.staticColliders.length; j++) {
+                    
                     this.dynamicColliders[i].performCollision(this.staticColliders[j]);
-
-                } catch {
-                    console.error("greetings from phyiscsengine 73 :)")
                 }
-            }
-            for (let j = 0; j < this.dynamicColliders.length; j++) {
-                if (j != i) {
-                    this.dynamicColliders[i].performCollision(this.dynamicColliders[j]);
+                for (let j = 0; j < this.dynamicColliders.length; j++) {
+                    if (j != i) {
+                        this.dynamicColliders[i].performCollision(this.dynamicColliders[j]);
+                    }
                 }
+                this.dynamicColliders[i].customRun();
+            } catch(error) {
+                console.error(error);
             }
-            this.dynamicColliders[i].customRun();
         }
 
         for (let i = 0; i < this.updatables.length; i++) {

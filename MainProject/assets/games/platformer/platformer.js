@@ -22,11 +22,14 @@ class Platformer {
         this.items = require('./items.json').items;
 
         this.mapIndex = Math.floor(Math.random() * this.maps.maps.length);
+
+        // this.mapIndex = 2;
+        // console.log(this.maps.maps)
         this.physicsWorld = new PhysicsWorld(this.maps.maps[this.mapIndex], this);
         
 
-        // this.totalRounds = Math.floor(5 + Math.random()*10);
-        this.totalRounds = 2
+        this.totalRounds = Math.floor(5 + Math.random()*10);
+        // this.totalRounds = 2
         this.round = this.totalRounds;
         this.timer = Date.now()+60000;
 
