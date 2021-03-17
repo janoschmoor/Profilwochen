@@ -4,7 +4,7 @@ let serverTime;
 let clientIsMobile = false;
 
 function connect() {
-	socket = io.connect("192.168.129.161:3000");
+	socket = io.connect("192.168.1.110:3000");
 
 	socket.emit('establishConnection', {
 		gameType: "Platformer",
@@ -146,12 +146,21 @@ function connect() {
 			// 	let text = scene.getObjectByName("text");
 			let element = document.getElementById("gameover");
 			// element.innerHTML = data.highestHolder + " has won!";
+			// console.log(data);
 			if (data.id == me.id) {
 				element.innerHTML = "You won the game!";
 			} else {
-				element.innerHTML = data.id + " won the game!";
+				let temp = game.players.findIndex(player => player.id == data.id);
+				if (temp != -1) {
+					element.innerHTML = game.players[temp].name + " won the game!";
+				} else {
+					element.innerHTML = "Nobody won the game";
+				}
 			}
 			
+			let element2 = document.getElementById("gameovercontrols");
+			element2.innerHTML = "Press Space or Enter to reload, Press Escape to return to the lobby";
+
 			// camera.position.set(text.position.x - 15, text.position.y, text.position.z - 20);
 			// camera.lookAt(text.position.x - 15, text.position.y, text.position.z);
 			bGameOver = true;

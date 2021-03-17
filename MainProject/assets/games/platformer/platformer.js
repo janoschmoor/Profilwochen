@@ -46,7 +46,8 @@ class Platformer {
         this.physicsWorld.remove(id);
     }
 
-    addPlayer(player, ip) {
+    addPlayer(player, ip, name) {
+        player.name = name;
         this.players.push(player);
         
         let temp = new PlayerCollider(this.physicsWorld, player.id, "0x222222",new Vector2D(this.maps.maps[this.mapIndex].startChunk.x * this.maps.maps[this.mapIndex].chunkSize, this.maps.maps[this.mapIndex].startChunk.y * this.maps.maps[this.mapIndex].chunkSize), 0, player);

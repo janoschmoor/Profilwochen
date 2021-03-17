@@ -239,7 +239,7 @@ class TankWarsPlayer extends Client {
     returnSelf() {
         return {id: this.id, pos: this.pos, vel: this.vel, size: this.size, maxSpeed: this.maxSpeed,
                 angle: this.angle, angleSpeed: this.angleSpeed, scope: this.scope, weapon: this.weapon,
-                health: this.health, state: this.state, color: this.color, effects: this.effects};
+                health: this.health, state: this.state, color: this.color, effects: this.effects, name: this.name};
     }
 
     teleportRandom() {

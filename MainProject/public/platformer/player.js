@@ -2,7 +2,7 @@
 class Player {
 	constructor(player) {
 		this.id = player.id;
-		this.name = this.id;
+		this.name = player.name;
         // this.pos = new Vector2D(player.pos.x, player.pos.y);
 		this.angle = player.angle;
 

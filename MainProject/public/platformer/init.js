@@ -50,7 +50,7 @@ document.addEventListener('keydown',
 				inputControl.d == false;
 			}
 		}
-		if (event.key == " ") {
+		if (event.key == " " || event.key == "Enter") {
 			if (bGameOver) {
 				location.reload();
 			}

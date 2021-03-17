@@ -28,8 +28,9 @@ class TankWars {
         this.players.splice(index, 1);
     }
 
-    addPlayer(player) {
+    addPlayer(player, ip, name) {
         player.color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1.0)`;
+        player.name = name;
         this.players.push(player);
     }
 

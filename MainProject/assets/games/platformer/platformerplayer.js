@@ -127,7 +127,7 @@ class PlatformerPlayer extends Client {
     }
 
     returnSelf() {
-        return {id: this.id, pos: this.pos, state: this.state, collider: this.collider.returnSelf()};
+        return {id: this.id, name: this.name, pos: this.pos, state: this.state, collider: this.collider.returnSelf()};
     }
 
     tpToStart() {

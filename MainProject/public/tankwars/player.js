@@ -4,7 +4,7 @@ class Player {
 		this.scope = 1.8;
 
 		this.id = player.id;
-		this.name = this.id;
+		this.name = player.name;
         this.pos = new Vector2D(player.pos.x, player.pos.y);
         this.vel = new Vector2D(player.vel.x, player.vel.y);
 		this.radius = player.radius;
@@ -28,7 +28,7 @@ class Player {
 
 		this.rect = two.makeRectangle(player.pos.x, player.pos.y, player.size.x, player.size.y);
 		this.rect.fill = this.color;
-		this.nameText = two.makeText(this.id, player.pos.x, player.pos.y - 10);
+		this.nameText = two.makeText(this.name, player.pos.x, player.pos.y - 10);
 
 		this.barrel = two.makeRectangle(player.pos.x, player.pos.y, 25, 5);
 		this.barrel.rotation = this.angle;
@@ -57,6 +57,8 @@ class Player {
 			let m = 1;
 			if (this.effects.speed.bool) {
 				m = 2;
+			} else if (this.effects.slowdown.bool) {
+				m = 0.25;
 			}
 			this.pos.add(this.vel.magnitude(this.maxSpeed * (game.physicsTimeStep / 1000) * m));
 		}
@@ -69,7 +71,7 @@ class Player {
 				radius: 2 + Math.random() * 2
 			}
 			let dir = fromAngle(this.angle + (Math.random() - 0.5)).magnitude(-20);
-			let pos = new Vector2D(this.pos.x, this.pos.y).add(dir);;
+			let pos = new Vector2D(this.pos.x, this.pos.y).add(dir);
 			if (this.vel.magnitude() == 0) {
 				game.particles.push(new Particle(shape, "rgba(139, 69, 19, 0.4)", 20, pos, new Vector2D(0,0), 0.01, 0.95));
 			} else {
@@ -81,7 +83,7 @@ class Player {
 				type: "rect",
 				stroke: true,
 				size: new Vector2D(Math.random() * 2 + 3, Math.random() * 3 + 2)
-			} 
+			}
 			let vel = new Vector2D(Math.random() * 10 - 5, Math.random() * 10 - 5);
 			let pos = new Vector2D(this.pos.x, this.pos.y).add(vel);
 			game.particles.push(new Particle(shape, this.rect.fill, 30, pos, vel, 10, 0.85));
@@ -163,6 +165,8 @@ Player.prototype.useOwnInput = function() {
 		let m = 1;
 		if (this.effects.speed.bool) {
 			m = 2;
+		} if (this.effects.slowdown.bool) {
+			m = 0.25;
 		}
 		if (clientIsMobile && mobileController.clickables[0].pointer.magnitude() != 0)
 		{

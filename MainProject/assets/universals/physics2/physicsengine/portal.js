@@ -22,16 +22,16 @@ Portal.prototype.collisionDetected = function(id) {
         let indices = [];
         for (let i = 0; i < this.physicsWorld.updatables.length; i++) {
             if (this.physicsWorld.updatables[i].type === "Portal" && this.physicsWorld.updatables[i].cooldown >= 100) {
-                if (!(this.physicsWorld.updatables[i] === this)) {
+                if (this.physicsWorld.updatables[i] !== this) {
                     indices.push(i);
                 }
             }
         }
         if (indices.length > 0) {
             let temp = Math.floor(Math.random() * (indices.length));
-            player.tp(new Vector2D(this.physicsWorld.updatables[temp].pos.x, this.physicsWorld.updatables[temp].pos.y));
+            player.tp(new Vector2D(this.physicsWorld.updatables[indices[temp]].pos.x, this.physicsWorld.updatables[indices[temp]].pos.y));
             this.cooldown = 0;
-            this.physicsWorld.updatables[temp].cooldown = 0;
+            this.physicsWorld.updatables[indices[temp]].cooldown = 0;
             console.log("1" , indices.length);
         }
     }

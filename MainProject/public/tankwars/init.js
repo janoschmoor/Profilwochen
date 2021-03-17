@@ -53,7 +53,7 @@ document.addEventListener('keydown',
 			event.preventDefault();
 			game.toggleLeaderBoard = true;
 		}
-		if (event.key == " ") {
+		if (event.key == " " || event.key == "Enter") {
 			if (bGameOver) {
 				location.reload();
 			}

@@ -6,7 +6,7 @@ let clientIsMobile = false;
 let hud = {weapon : {name: "TankWarsWeapon"}};
 
 function connect() {
-	socket = io.connect("192.168.129.161:3000");
+	socket = io.connect("192.168.1.110:3000");
 
 	socket.emit('establishConnection', {
 		gameType: "TankWars",
@@ -179,9 +179,11 @@ function connect() {
 
 			let b = two.makeRectangle(window.innerWidth / 2, window.innerHeight / 2, window.innerWidth, window.innerHeight);
 			let go = two.makeText(`${data} has won`, window.innerWidth/ 2, window.innerHeight / 2.5);
-
+			
 			let gob = two.makeRectangle(window.innerWidth / 2, window.innerHeight - window.innerHeight / 2.5, window.innerWidth / 3, window.innerHeight / 5);
 			let gobt = two.makeText("Reconnect", window.innerWidth / 2, window.innerHeight - window.innerHeight / 2.5);
+			let controlsText = two.makeText("Press Space or Enter to reload (or click on the button), Press Escape to return to the lobby", window.innerWidth / 2, window.innerHeight - window.innerHeight / 3);
+
 			gobt.fill = "#000000";
 			gobt.scale = 4;
 
@@ -191,6 +193,8 @@ function connect() {
 
 			go.family = font;
 			gobt.family = font;
+			controlsText.family = font;
+
 
 			bGameOver = true;
 		}

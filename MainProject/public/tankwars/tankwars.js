@@ -57,7 +57,7 @@ class TankWars {
 			this.players[i].rect.translation.set(xOffset + this.players[i].pos.x * me.scope, yOffset + this.players[i].pos.y * me.scope);
 			this.players[i].barrel.translation.set(xOffset + this.players[i].pos.x * me.scope + Math.cos(this.players[i].angle) * me.scope * 8, yOffset + this.players[i].pos.y * me.scope + Math.sin(this.players[i].angle) * me.scope * 8);
 			this.players[i].turret.translation.set(xOffset + this.players[i].pos.x * me.scope, yOffset + this.players[i].pos.y * me.scope);
-			this.players[i].nameText.translation.set(xOffset + this.players[i].pos.x * me.scope, yOffset + this.players[i].pos.y * me.scope - 10);
+			this.players[i].nameText.translation.set(xOffset + this.players[i].pos.x * me.scope, yOffset + this.players[i].pos.y * me.scope - 15);
 			
 			this.players[i].barrel.rotation = this.players[i].angle;
 

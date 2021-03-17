@@ -174,7 +174,7 @@ Collider.prototype.performPointSAT = function(other) {
         }
         if (counter == other.vertecies.length) {
             vertexIndecies.push(thisVertexIndex);
-            this.collisionVertexFound(thisVertexIndex);
+            this.collisionVertexFound(thisVertexIndex, other);
             // return vertexIndecies
         }
     }

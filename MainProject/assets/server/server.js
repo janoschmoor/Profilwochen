@@ -9,7 +9,7 @@ class Server {
     constructor() {
         // IO
         if (process.argv[2] == "local") {
-            this.ip = '192.168.129.161';
+            this.ip = '192.168.1.110';
             this.port = 3000;
         } else {
             this.port = process.env.PORT || 80;
@@ -39,8 +39,11 @@ class Server {
         this.physicsTimeStep = 0;
 
         this.clients = [];
-        this.availableGames = ["Game", "TankWars", "Platformer"];
+        // this.availableGames = ["Game", "TankWars", "Platformer"];
+        this.availableGames = ["TankWars", "Platformer"];
         this.games = [];
+
+        this.storedNames = [];
 
     }
 
@@ -72,9 +75,20 @@ class Server {
                 socket.on('establishConnection',
                     function(data) {
                         let index = server.games.findIndex(game => game.isOpen(data) === true);
+                        let name = "";
+                        for (let i = server.storedNames.length-1; i >= 0; i--) {
+                            if (server.storedNames[i].ip == socket.handshake.address) {
+                                name = server.storedNames[i].name;
+                                break;
+                            }
+                        }
+                        if (name == "") {
+                            name = socket.id;
+                        }
+                        
                         if (index != -1) {
                             server.clients.push(server.games[index].returnPlayer(socket.id, data.isMobile));
-                            server.games[index].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address);
+                            server.games[index].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address, name);
                             socket.join(server.games[index].id);
                             let gameAndId = {
                                 game: server.games[index].returnGame(),
@@ -85,7 +99,7 @@ class Server {
                         } else if (server.availableGames.includes(data.gameType)) {
                             server.games.push(eval("new " + data.gameType + "()"));
                             server.clients.push(server.games[server.games.length - 1].returnPlayer(socket.id, data.isMobile));
-                            server.games[server.games.length - 1].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address);
+                            server.games[server.games.length - 1].addPlayer(server.clients[server.clients.length - 1], socket.handshake.address, name);
                             socket.join(server.games[server.games.length - 1].id);
                             let gameAndId = {
                                 game: server.games[server.games.length - 1].returnGame(),
@@ -124,9 +138,14 @@ class Server {
                         }
                     });
                 
-                socket.on('os',
+                socket.on('storeName',
                     function(data) {
                         console.log(data);
+                        server.storedNames.push({ip: socket.handshake.address, name: data.name});
+                        terminal.log(server.storedNames[server.storedNames.length-1])
+                        if (server.storedNames.length > 50) {
+                            server.storedNames.splice(0,1);
+                        }
                     })
             }
         );

@@ -1,3 +1,4 @@
+
 import * as THREE from '/build/three.module.js';
 import {GLTFLoader} from '/jsm/loaders/GLTFLoader.js';
 import {MTLLoader} from '/jsm/loaders/MTLLoader.js';
@@ -679,8 +680,6 @@ class Blackhole {
 }
 let blackhole1 = new Blackhole(new THREE.Vector3(100, -1000, -200));
 let blackhole2 = new Blackhole(new THREE.Vector3(100, 1000, 500));
-
-
 
 
 animate();

@@ -34,8 +34,10 @@ Entity.prototype.getUpdate = function() {
     }
 }
 
-Entity.prototype.collisionVertexFound = function(thisVertexIndex) {
-    this.touchingVertices[thisVertexIndex] = true;
+Entity.prototype.collisionVertexFound = function(thisVertexIndex, other) {
+    if (other.type != "PlayerCollider") {
+        this.touchingVertices[thisVertexIndex] = true;
+    }
 }
 
 Entity.prototype.resetTouchingVertices = function() {
