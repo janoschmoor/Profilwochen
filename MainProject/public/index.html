@@ -92,32 +92,50 @@
 </head>
 <body>
 
-  <script type="module" src='home/therealindex.js'></script>
-  <script>
-    var socket;
-    function connect() {
-        socket = io.connect("192.168.1.110:3000");
-    }
-    function submitName() {
-        let el = document.getElementById("enter_name");
-        let name = el.value;
-        el.style.display = "none";
-        el = document.getElementById("submit_name");
-        el.style.display = "none";
-        if (name == "") {
-            name = "anonymus";
-        }
-        socket.emit('storeName', {
-            name: name,
-        });
-    }
-    connect();
-  </script>
-
   <button id="submit_name" onclick="submitName()">Submit</button>
   <input id="enter_name" placeholder="Go undercover"></input>
     <!-- <script type='module' src='home/index.js'></script> -->
     <!-- <script type='module' src='home/adifferentindex.js'></script> -->
+
+  <script type="module" src='home/therealindex.js'></script>
+  <script>
+    var socket;
+    function connect() {
+      socket = io.connect("192.168.129.147:3000");
+
+      try {
+        var url = window.location.search
+        var getQuery = url.split('?')[1]
+        var parameters = getQuery.split('&')
+        console.log(parameters[0].split("=")[1]);
+        document.name = parameters[0].split("=")[1];
+
+        if (document.name != "" && document.name != undefined) {
+          let el = document.getElementById("enter_name");
+          el.style.display = "none";
+          el = document.getElementById("submit_name");
+          el.style.display = "none";
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    function submitName() {
+      let el = document.getElementById("enter_name");
+      el.style.display = "none";
+      el = document.getElementById("submit_name");
+      el.style.display = "none";
+      document.name = document.getElementById("enter_name").value;
+      if (document.name == "") {
+        document.name = "anonymous";
+      }
+    }
+
+    connect();
+  </script>
+
 
 
   </body>

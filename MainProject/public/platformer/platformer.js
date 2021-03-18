@@ -141,6 +141,14 @@ class Platformer {
 					object.position.z = 0;
 				}
 			}
+			
+			for (let i = 0; i < this.physicsWorld.staticColliders.length; i++) {
+				object = scene.getObjectByName(this.physicsWorld.staticColliders[i].id.toString());
+				if (object) {
+					object.rotateZ(-this.physicsWorld.staticColliders[i].angularVel);
+				}
+				
+			}
 			cameraLookAt();
 		}
 	}

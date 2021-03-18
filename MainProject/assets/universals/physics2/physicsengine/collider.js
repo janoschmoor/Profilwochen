@@ -194,6 +194,8 @@ Collider.prototype.getPositionCorrection = function(vertexIndex, other) {
         let v2WorldPos = new Vector2D(other.vertecies[otherVertexIndex].x + other.pos.x, other.vertecies[otherVertexIndex].y + other.pos.y);
         let v2WorldDir = new Vector2D(other.vertecies[(otherVertexIndex + 1) % other.vertecies.length].x - other.vertecies[otherVertexIndex].x + v2WorldPos.x, other.vertecies[(otherVertexIndex + 1) % other.vertecies.length].y - other.vertecies[otherVertexIndex].y + v2WorldPos.y);
 
+        // let v2WorldPos = new Vector2D()
+
         if (v1WorldDir.intersects(other.pos, v2WorldPos, v2WorldDir)) {
             let projectionAxis = v2WorldDir.sub(v2WorldPos);
             projectionAxis.set(projectionAxis.y, -projectionAxis.x);
@@ -212,6 +214,22 @@ Collider.prototype.getPositionCorrection = function(vertexIndex, other) {
     }
     console.error("notgut")
     return null;
+
+    // ▲ old collision ▲ ------------------------------- ▼ new collision ▼
+
+    // let vertexProjectionPoint = new Vector2D(this.vertecies[vertexIndex].x + this.pos.x, this.vertecies[vertexIndex].y + this.pos.y);
+    // let axisIntersectionProjectionPoint;
+
+    // for (let otherVertexIndex = 0; otherVertexIndex < other.vertecies.length; otherVertexIndex++) {
+        
+        
+    // }
+
+    // let p1 = new Vector2D();
+    // let p2 = new Vector2D();
+    // let p3 = new Vector2D();
+    // let p4 = new Vector2D();
+
 }
 
 Collider.prototype.updateMotionState = function() {
@@ -372,11 +390,16 @@ Collider.prototype.getOwnChunks = function() {
 }
 
 Collider.prototype.returnSelf = function() {
+
+    if (!this.angularVel) {
+        this.angularVel = 0;
+    }
     return {
         id: this.id,
         pos: this.pos,
         vertexBuilder: this.vertexBuilder,
         angle: this.angle,
+        angularVel: this.angularVel,
 
         vertecies: this.vertecies,
         boundingBox: this.boundingBox,

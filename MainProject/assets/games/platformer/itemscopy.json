@@ -1,20 +1,13 @@
 {
 	"items": [
 		{
-            "type": "turret",
-			"size": {"width": 0.5, "height": 2},
+            "type": "stationary_rectangle",
+			"size": {"width": 4, "height": 1},
 			"relativePos": {"x": 2, "y": 0},
-			"angle": 0,
-			"angularVel": 0,
-			"color": "0xffffff"
-		},
-		{
-            "type": "forcefield",
-			"size": {"width": 1, "height": 1},
-			"relativePos": {"x": 2, "y": 0},
-			"angle": 0,
+			"angle": 0.7854,
 			"angularVel": 0,
 			"color": "0xffffff"
 		}
+		
 	]
 }

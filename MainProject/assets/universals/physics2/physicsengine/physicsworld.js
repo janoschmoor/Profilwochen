@@ -151,9 +151,11 @@ class PhysicsWorld {
             let collider;
             if (colliders[i].type == "stationary_rectangle") {
                 collider = new Collider(this, this.nextColliderId, colliders[i].color, new Vector2D(colliders[i].pos.x, colliders[i].pos.y), new Rectangle(colliders[i].size.width, colliders[i].size.height), colliders[i].angle);
+                collider.partOfMap = true;
                 this.nextColliderId++;
             } else if (colliders[i].type == "entity_rectangle") {
                 collider = new Entity(this, this.nextColliderId, colliders[i].color, new Vector2D(colliders[i].pos.x, colliders[i].pos.y), new Rectangle(colliders[i].size.width, colliders[i].size.height), colliders[i].angle, new Vector2D(colliders[i].vel.x, colliders[i].vel.y), colliders[i].angularVel);
+                collider.partOfMap = true;
                 this.nextColliderId++;
             }
             this.add(collider);

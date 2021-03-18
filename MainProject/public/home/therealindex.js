@@ -15,6 +15,12 @@ import { UnrealBloomPass } from '/jsm/postprocessing/UnrealBloomPass.js';
 
 // import {Howl, Howler} from '/howler/src/howler.core.js';
 
+try {
+    document.name = window.location.search.split("?")[1].split("&")[0].split("=")[1];
+} catch {
+    document.name = "";
+}
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 5000 );
 const OBJloader = new OBJLoader();
@@ -333,11 +339,17 @@ const animate = function () {
         if (Character && blackhole1 && blackhole2) {
             blackhole1.update();
             if (Character.position.distanceTo(blackhole1.mesh.position) < blackhole1.mesh.geometry.parameters.radius) {
-                location.replace("tankwars.html");
+                let query = "?name=";
+                query += document.name;
+                console.log(query);
+                location.replace("tankwars.html"+query);
             }
             blackhole2.update();
             if (Character.position.distanceTo(blackhole2.mesh.position) < blackhole2.mesh.geometry.parameters.radius) {
-                location.replace("platformer.html");
+                let query = "?name=";
+                query += document.name;
+                console.log(query);
+                location.replace("platformer.html"+query);
             }
         }
         // if (Character.position.distanceTo(blackhole1.position) < blackhole1.geometry.parameters.radius) {

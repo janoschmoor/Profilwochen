@@ -6,9 +6,10 @@ class Collider {
         if (collider.vel) {
             this.vel = new Vector2D(collider.vel.x, collider.vel.y);
             this.acc = new Vector2D(0, 0);
-            this.angularVel = collider.angularVel;
+            
             this.angularAcc = 0;
         }
+        this.angularVel = collider.angularVel;
         
         this.vertexBuilder = collider.vertexBuilder;
         this.angle = collider.angle;

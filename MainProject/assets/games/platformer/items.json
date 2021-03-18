@@ -71,6 +71,14 @@
 			"angle": 0,
 			"angularVel": 0,
 			"color": "0xffffff"
+		},
+		{
+            "type": "bomb",
+			"size": {"width": 6, "height": 6},
+			"relativePos": {"x": 2, "y": 0},
+			"angle": 0,
+			"angularVel": 0,
+			"color": "0x000000"
 		}
 	]
 }

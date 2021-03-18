@@ -7,6 +7,7 @@ const Entity = require("../../universals/physics2/physicsengine/entity");
 const Portal = require("../../universals/physics2/physicsengine/portal");
 const Turret = require("../../universals/physics2/physicsengine/turret");
 const ForceField = require("../../universals/physics2/physicsengine/forcefield");
+const Bomb = require("../../universals/physics2/physicsengine/bomb");
 
 
 class PlatformerPlayer extends Client {
@@ -164,6 +165,9 @@ class PlatformerPlayer extends Client {
             this.game.physicsWorld.nextColliderId ++;
         } else if (item.type == "forcefield") {
             collider = new ForceField(this.game.physicsWorld, this.game.physicsWorld.nextColliderId, this.collider.color, new Vector2D(this.collider.pos.x + item.relativePos.x, this.collider.pos.y + item.relativePos.y), new Rectangle(item.size.width * (Math.random() * 5) , item.size.height * (Math.random() * 5)));
+            this.game.physicsWorld.nextColliderId ++;
+        } else if (item.type == "bomb") {
+            collider = new Bomb(this.game.physicsWorld, this.game.physicsWorld.nextColliderId, 0x000000, new Vector2D(this.collider.pos.x + item.relativePos.x, this.collider.pos.y + item.relativePos.y), new Rectangle(item.size.width, item.size.height));
             this.game.physicsWorld.nextColliderId ++;
         }
         this.game.physicsWorld.add(collider);

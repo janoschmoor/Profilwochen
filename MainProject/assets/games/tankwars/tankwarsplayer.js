@@ -6,7 +6,8 @@ const TankWarsProjectile = require("./tankwarsprojectile.js");
 const TankWarsWeapon = require("./tankwarsweapons.js")[0];
 const Shotgun = require("./tankwarsweapons.js")[1];
 const Machinegun = require("./tankwarsweapons.js")[2];
-const SpecialWeapon = require("./tankwarsweapons.js")[3];
+const TankWarsLaser = require("./tankwarsweapons.js")[3];
+const SpecialWeapon = require("./tankwarsweapons.js")[4];
 
 
 class TankWarsPlayer extends Client {
@@ -28,7 +29,7 @@ class TankWarsPlayer extends Client {
 
         this.kills = 0;
         this.weapon = new TankWarsWeapon(1);
-        this.tier = 1;
+        this.tier = 3;
         this.state = "playing";
 
         this.currentCell = this.getCell();

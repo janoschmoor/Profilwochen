@@ -4,11 +4,21 @@ let serverTime;
 let clientIsMobile = false;
 
 function connect() {
-	socket = io.connect("192.168.1.110:3000");
+	socket = io.connect("192.168.129.147:3000");
+
+	var url = window.location.search;
+	var getQuery = url.split('?')[1];
+	var parameters;
+	if (getQuery != undefined) {
+		parameters = getQuery.split('&')
+	} else {
+		parameters = ["name=anonymous"];
+	}
 
 	socket.emit('establishConnection', {
 		gameType: "Platformer",
-		isMobile: clientIsMobile
+		isMobile: clientIsMobile,
+		name: parameters[0].split("=")[1]
 	});
 
 	socket.on('serverUpdate',
@@ -28,8 +38,8 @@ function connect() {
 							game.physicsWorld.colliders[index].vel = new Vector2D(data.colliderUpdates[i].vel.x, data.colliderUpdates[i].vel.y);
 							game.physicsWorld.colliders[index].angularVel = data.colliderUpdates[i].angularVel;
 							// game.physicsWorld.colliders[index].angle = ;
-							game.physicsWorld.colliders[index].setAngle(data.colliderUpdates[i].angle);
 						}
+						game.physicsWorld.colliders[index].setAngle(data.colliderUpdates[i].angle);
 					}
 				}
 				cameraLookAt();
@@ -159,7 +169,7 @@ function connect() {
 			}
 			
 			let element2 = document.getElementById("gameovercontrols");
-			element2.innerHTML = "Press Space or Enter to reload, Press Escape to return to the lobby";
+			element2.innerHTML = "Press Space or Enter to reload, Hold Escape to return to the lobby";
 
 			// camera.position.set(text.position.x - 15, text.position.y, text.position.z - 20);
 			// camera.lookAt(text.position.x - 15, text.position.y, text.position.z);

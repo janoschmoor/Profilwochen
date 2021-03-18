@@ -26,6 +26,11 @@ class PhysicsWorld {
         this.timestep = (Date.now() - this.lastUpdate) / 1000;
         this.lastUpdate = Date.now();
 
+        for (let i = 0; i < this.staticColliders.length; i++) {
+            if (this.staticColliders[i].angularVel) {
+                this.staticColliders[i].rotate(this.staticColliders[i].angularVel);
+            } 
+        }
 
         for (let i = 0; i < this.dynamicColliders.length; i++) {
 
@@ -33,8 +38,7 @@ class PhysicsWorld {
 
             for (let j = 0; j < this.staticColliders.length; j++) {
                 if (!this.staticColliders[j].noCollide) {
-                    this.dynamicColliders[i].performCollision(this.staticColliders[j]);
-                    
+                    this.dynamicColliders[i].performCollision(this.staticColliders[j]);   
                 }
             }
         }

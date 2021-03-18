@@ -1,5 +1,6 @@
 const Vector2D = require("../../universals/vector2d.js");
 const TankWarsProjectile = require("./tankwarsprojectile.js");
+const TankWarsLaserBlast = require("./tankwarslaserblast.js");
 
 class TankWarsWeapon {
     constructor(tier) {
@@ -80,6 +81,32 @@ class Machinegun extends TankWarsWeapon {
         }
     }
 }
+
+class TankWarsLaser {
+    constructor(tier) {
+        this.maxCooldown = 80 - 70 * (tier / (tier + 1));
+        this.cooldown = 0;
+        this.maxAmmo = 1;
+        this.currentAmmo = this.maxAmmo;
+        this.maxReloadTime = 150;
+        this.reloadTime = 150;
+        this.projectileSpeed = 100 + 110 * (tier / (tier + 1));
+        this.nextWeapon = "SpecialWeapon";
+
+        this.name = this.constructor.name;
+    }
+
+    shoot(player) {
+        if (this.currentAmmo > 0 && this.cooldown <= 0) {
+            this.cooldown = this.maxCooldown;
+            this.currentAmmo -= 1;
+            player.game.projectiles.push(new TankWarsLaserBlast(player.pos, this.projectileSpeed, player.angle, 5, 5, player.id, player.team, player.currentCell, player.game.id));
+            server.io.to(player.game.id).emit('newProjectile', player.game.projectiles[player.game.projectiles.length - 1]);
+            player.game.nextUpdate.specials.push({type: "shootParticle", pos: player.pos, dir: Vector2D.fromAngle(player.angle)})
+        }
+    }
+}
+
 class SpecialWeapon extends TankWarsWeapon {
     constructor(tier) {
         super();
@@ -145,7 +172,7 @@ class SpecialWeapon extends TankWarsWeapon {
                         player.game.state = "done";
                         server.io.to(player.game.id).emit("gameOver", player.id);
                         let gameIndex = server.games.findIndex(game => game.id === player.game.id);
-                        server.games.splice(gameIndex , 1);
+                        server.games[gameIndex].delete = true;
                     }
                     player.health = 0;
                 }
@@ -154,4 +181,4 @@ class SpecialWeapon extends TankWarsWeapon {
     }
 }
 
-module.exports = [TankWarsWeapon, Shotgun, Machinegun, SpecialWeapon];
+module.exports = [TankWarsWeapon, Shotgun, Machinegun, TankWarsLaser, SpecialWeapon];

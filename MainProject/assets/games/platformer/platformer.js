@@ -168,6 +168,7 @@ class Platformer {
             this.nextUpdate.specials.push({type: "changeGameState", state: this.state, endTime: this.timer, round: this.round});
 
             this.cleanSensors();
+            this.igniteBombs();
 
             for (let i = 0; i < this.players.length; i++) {
                 this.players[i].tpToStart();
@@ -235,6 +236,14 @@ class Platformer {
         }
         // this.physicsWorld.remove(id);
         // this.nextUpdate.specials.push({type:"removeCollider", identifier: id})
+    }
+
+    igniteBombs() {
+        for (let i = 0; i < this.physicsWorld.colliders.length; i++) {
+            if (this.physicsWorld.colliders[i].type == "Bomb") {
+                this.physicsWorld.colliders[i].explode();
+            }
+        }
     }
 }
 

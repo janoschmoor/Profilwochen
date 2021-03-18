@@ -60,7 +60,7 @@ document.addEventListener('keydown',
 		}
 		if (event.key == "Escape") {
 			if (bGameOver) {
-				location.replace("/");
+				location.replace("/?name=" + me.name);
 			}
 		}
 		socket.emit('clientUpdate', input);

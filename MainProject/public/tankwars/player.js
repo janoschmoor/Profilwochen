@@ -28,7 +28,7 @@ class Player {
 
 		this.rect = two.makeRectangle(player.pos.x, player.pos.y, player.size.x, player.size.y);
 		this.rect.fill = this.color;
-		this.nameText = two.makeText(this.name, player.pos.x, player.pos.y - 10);
+		this.nameText = two.makeText(this.name, player.pos.x, player.pos.y - 40);
 
 		this.barrel = two.makeRectangle(player.pos.x, player.pos.y, 25, 5);
 		this.barrel.rotation = this.angle;

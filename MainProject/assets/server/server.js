@@ -9,7 +9,7 @@ class Server {
     constructor() {
         // IO
         if (process.argv[2] == "local") {
-            this.ip = '192.168.1.110';
+            this.ip = '192.168.129.147';
             this.port = 3000;
         } else {
             this.port = process.env.PORT || 80;
@@ -19,14 +19,25 @@ class Server {
         this.path = require('path');
         
         this.app = this.express();
+
+        // this.app.get('/tankwars.html', function (req, res, next) {
+        //     console.log(req.query.name);
+        //     // res.send("<p id=\"yourname\">"+req.query.name+"</p>")
+        //     next();
+        // });
+        // this.app.get('/platformer.html', function (req, res, next) {
+        //     console.log(req.query.name);
+        //     // res.send("<p id=\"yourname\">"+req.query.name+"</p>");
+        //     next();
+        // });
+
         this.app.use(this.express.static('public'));
-        
         this.app.use('/build/', this.express.static(this.path.join(__dirname, '../../node_modules/three/build')));
         this.app.use('/jsm/', this.express.static(this.path.join(__dirname, '../../node_modules/three/examples/jsm')));
         this.app.use('/fonts/', this.express.static(this.path.join(__dirname, '../../node_modules/three/examples/fonts')));
         this.app.use('/home/', this.express.static(this.path.join(__dirname, '../../../public/home')));
         // this.app.use('/howler/', this.express.static(this.path.join(__dirname, '../../node_modules/howler')));
-
+        
         
         this.server = this.app.listen(this.port, this.ip);
         
@@ -75,16 +86,7 @@ class Server {
                 socket.on('establishConnection',
                     function(data) {
                         let index = server.games.findIndex(game => game.isOpen(data) === true);
-                        let name = "";
-                        for (let i = server.storedNames.length-1; i >= 0; i--) {
-                            if (server.storedNames[i].ip == socket.handshake.address) {
-                                name = server.storedNames[i].name;
-                                break;
-                            }
-                        }
-                        if (name == "") {
-                            name = socket.id;
-                        }
+                        let name = data.name;
                         
                         if (index != -1) {
                             server.clients.push(server.games[index].returnPlayer(socket.id, data.isMobile));
@@ -140,12 +142,12 @@ class Server {
                 
                 socket.on('storeName',
                     function(data) {
-                        console.log(data);
-                        server.storedNames.push({ip: socket.handshake.address, name: data.name});
-                        terminal.log(server.storedNames[server.storedNames.length-1])
-                        if (server.storedNames.length > 50) {
-                            server.storedNames.splice(0,1);
-                        }
+                        // console.log(data);
+                        // server.storedNames.push({ip: socket.handshake.address, name: data.name});
+                        // terminal.log(server.storedNames[server.storedNames.length-1])
+                        // if (server.storedNames.length > 50) {
+                            // server.storedNames.splice(0,1);
+                        // }
                     })
             }
         );

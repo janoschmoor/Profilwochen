@@ -1,7 +1,7 @@
 const Vector2D = require("../../universals/vector2d");
 const TankWars = require("./tankwars.js");
 
-class TankWarsProjectile {
+class TankWarsLaserBlast {
 	constructor(pos, maxSpeed, angle, radius, life, playerId, playerTeam, cell, gameId, effect = false) {
         this.id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5) + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5) + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 		this.pos = new Vector2D(pos.x, pos.y);
@@ -29,50 +29,53 @@ class TankWarsProjectile {
     }
 
     update() {
-        this.pos.add(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
-        this.life -= 1;
-
-        let index = server.games.findIndex(game => game.id === this.gameId);
-        if (index != -1) {
-            this.oldCell.set(this.currentCell.x, this.currentCell.y);
-            this.currentCell = this.getCell(index);
-
-            if (this.oldCell.x != this.currentCell.x || this.oldCell.y != this.currentCell.y) {
-
-                // console.log(this.oldCell, this.currentCell);
-
-                if (this.oldCell.x < 0 || this.oldCell.x >= server.games[index].map.size.x || this.oldCell.y < 0 || this.oldCell.y >= server.games[index].map.size.y) {
-                    this.life = 0;
-                    return;
-                }
-
-                if (this.currentCell.x > this.oldCell.x) { // moving right
-                    if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[1] == true) {
-                        this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
-                        this.vel.x *= -1;
-                    }
-                }
-                if (this.currentCell.x < this.oldCell.x) { // moving left
-                    if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[3] == true) {
-                        this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
-                        this.vel.x *= -1;
-                    }
-                }
-                if (this.currentCell.y > this.oldCell.y) { // moving bottom
-                    if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[2] == true) {
-                        this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
-                        this.vel.y *= -1;
-                    }
-                }
-                if (this.currentCell.y < this.oldCell.y) { // moving top
-                    if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[0] == true) {
-                        this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
-                        this.vel.y *= -1;
-                    }
-                }
-
+        for (let i = 0; i < 50; i++) {
+            
+            this.pos.add(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
+            this.life -= 1;
+    
+            let index = server.games.findIndex(game => game.id === this.gameId);
+            if (index != -1) {
                 this.oldCell.set(this.currentCell.x, this.currentCell.y);
                 this.currentCell = this.getCell(index);
+    
+                if (this.oldCell.x != this.currentCell.x || this.oldCell.y != this.currentCell.y) {
+    
+                    // console.log(this.oldCell, this.currentCell);
+    
+                    if (this.oldCell.x < 0 || this.oldCell.x >= server.games[index].map.size.x || this.oldCell.y < 0 || this.oldCell.y >= server.games[index].map.size.y) {
+                        this.life = 0;
+                        return;
+                    }
+    
+                    if (this.currentCell.x > this.oldCell.x) { // moving right
+                        if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[1] == true) {
+                            this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
+                            this.vel.x *= -1;
+                        }
+                    }
+                    if (this.currentCell.x < this.oldCell.x) { // moving left
+                        if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[3] == true) {
+                            this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
+                            this.vel.x *= -1;
+                        }
+                    }
+                    if (this.currentCell.y > this.oldCell.y) { // moving bottom
+                        if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[2] == true) {
+                            this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
+                            this.vel.y *= -1;
+                        }
+                    }
+                    if (this.currentCell.y < this.oldCell.y) { // moving top
+                        if (server.games[index].map.cells[this.oldCell.x][this.oldCell.y].walls[0] == true) {
+                            this.pos.sub(this.vel.magnitude(this.maxSpeed * server.physicsTimeStep / 1000));
+                            this.vel.y *= -1;
+                        }
+                    }
+    
+                    this.oldCell.set(this.currentCell.x, this.currentCell.y);
+                    this.currentCell = this.getCell(index);
+                }
             }
         }
     }
@@ -137,4 +140,4 @@ class TankWarsProjectile {
         }
     }
 }
-module.exports = TankWarsProjectile;
+module.exports = TankWarsLaserBlast;
