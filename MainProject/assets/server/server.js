@@ -9,7 +9,7 @@ class Server {
     constructor() {
         // IO
         if (process.argv[2] == "local") {
-            this.ip = '192.168.129.147';
+            this.ip = '192.168.129.168';
             this.port = 3000;
         } else {
             this.port = process.env.PORT || 80;

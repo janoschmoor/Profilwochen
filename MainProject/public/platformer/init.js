@@ -60,6 +60,20 @@ document.addEventListener('keydown',
 				location.replace("/");
 			}
 		}
+		if (event.key == "Tab") {
+			event.preventDefault();
+			document.getElementById("leaderboard").style.display = "block";
+			let element;
+			for (let i = 0; i < game.players.length; i++) {
+				element = document.getElementById(game.players[i].id.toString());
+				element.innerHTML = game.players[i].name + ": " + game.players[i].score;
+			}
+			element = document.getElementById("timer");
+			element.style.display = "none";
+			element = document.getElementById("rounds");
+			element.style.display = "none";
+
+		}
 
 		if (bInput) {
 			socket.emit("clientUpdate", input);
@@ -110,6 +124,15 @@ document.addEventListener('keyup',
 			if (lookAtIndex == game.players.length) {
 				lookAtIndex = 0;
 			}
+		}
+		if (event.key == "Tab") {
+			event.preventDefault();
+			document.getElementById("leaderboard").style.display = "none";
+
+			element = document.getElementById("timer");
+			element.style.display = "block";
+			element = document.getElementById("rounds");
+			element.style.display = "block";
 		}
 	}
 );

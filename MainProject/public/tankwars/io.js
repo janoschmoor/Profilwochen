@@ -6,7 +6,7 @@ let clientIsMobile = false;
 let hud = {weapon : {name: "TankWarsWeapon"}};
 
 function connect() {
-	socket = io.connect("192.168.129.147:3000");
+	socket = io.connect("192.168.129.168:3000");
 
 	var url = window.location.search;
 	var getQuery = url.split('?')[1];

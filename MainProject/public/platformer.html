@@ -10,12 +10,14 @@
 				margin: 1cm;
   				font-family: "Copperplate", Times, serif;
 				margin-top: 2cm;
+				font-size: 16px;
 			}
 			.p2 {
 				position: absolute;
 				margin: 1cm;
   				font-family: "Copperplate", Times, serif;
 				margin-top: 1cm;
+				font-size: 16px;
 			}
 			.p3 {
 				font-size: 20px;
@@ -48,6 +50,24 @@
 				margin-top: 80vh;
 				font-family: "Copperplate", Times, serif;
 			}
+			#leaderboard {
+				position: absolute;
+				padding: 0px;
+				margin: 1cm;
+				font-family: "Copperplate", Times, serif;
+				font-size: 16px;
+				display: none;
+			}
+			.playername {
+				margin: 5px;
+				padding: 1px;
+				font-family: inherit;
+				font-size: 12px;
+			}
+			.l {
+				padding: 0px;
+				margin: 0px;
+			}
 		</style>
 
 		<script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
@@ -79,6 +99,11 @@
 			<p class="p3" id="controls1">W: Jump	S: Down		A: Left		D: Right</p>
 			<p class="p4" id="controls2">When Building: Press Enter to place</p>
 		</div>
+
+		<div id="leaderboard">
+			<p class="l">Leaderboard</p>
+		</div>
+
 		<h2 id="gameover"></h2>
 		<h3 id="gameovercontrols"></h3>
 
