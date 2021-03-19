@@ -29,7 +29,7 @@ class TankWarsPlayer extends Client {
 
         this.kills = 0;
         this.weapon = new TankWarsWeapon(1);
-        this.tier = 3;
+        this.tier = 1;
         this.state = "playing";
 
         this.currentCell = this.getCell();
